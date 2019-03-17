@@ -3,7 +3,7 @@ Simple state management using React's hooks and context API
 
 # About
 
-TooManyHoox is a simple state management library created to use React's hooks and context APIs. Hoox is similar to libraries like Redux, except that it is invoked via a custom hook, rather than through a component decorator.
+TooManyHoox is a simple state management library created to use React's hooks and context APIs. TooManyHoox is similar to libraries like Redux, except that it is invoked via a custom hook, rather than through a component decorator.
 
 # Examples
 
