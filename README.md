@@ -109,9 +109,9 @@ The logger can then be added to any store when it is created.
 
 ```javascript
 const { store, useStore } = createStore(
-		reducer,
-		initialState,
-		[logger, /* . . .*/]
+	reducer,
+	initialState,
+	[logger, /* . . .*/]
 );
 ```
 
