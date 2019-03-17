@@ -1,6 +1,6 @@
 {
   "name": "toomanyhoox",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simple state management using React's hooks and context API",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -20,11 +20,13 @@
     "url": "https://github.com/avielmenter/hoox/issues"
   },
   "homepage": "https://github.com/avielmenter/hoox#readme",
-  "dependencies": {
+  "peerDependencies": {
     "@types/react": "^16.8.8",
     "react": "^16.8.4"
   },
   "devDependencies": {
+    "@types/react": "^16.8.8",
+    "react": "^16.8.4",
     "typescript": "^3.3.3333"
   }
 }
