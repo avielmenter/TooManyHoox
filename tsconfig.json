@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"declaration": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"jsx": "react",
+		"experimentalDecorators": true,
+		"strict": true,
+		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"outDir": "./dist"
+	},
+	"include": [
+		"src/*"
+	],
+	"exclude": [
+		"node_modules",
+	],
+	"compileOnSave": true
+}
