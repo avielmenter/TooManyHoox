@@ -10,7 +10,7 @@
 		"strictNullChecks": true,
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
-		"outDir": "./dist"
+		"outDir": "./lib"
 	},
 	"include": [
 		"src/*"

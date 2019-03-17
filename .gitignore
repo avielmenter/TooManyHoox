@@ -1,5 +1,4 @@
 .vscode
-dist
-dist_dev
+lib
 node_modules
 .env

@@ -2,8 +2,11 @@
   "name": "toomanyhoox",
   "version": "0.1.0",
   "description": "Simple state management using React's hooks and context API",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
     "build": "tsc"
   },
