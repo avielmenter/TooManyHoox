@@ -84,7 +84,7 @@ Now, the store can be accessed from functional components contained within the p
 ```javascript
 const component = (props) => {
 	const { state, actions } = useStore(
-		mapStateToProps,
+		mapStateToProps,	// useStore function returned by createStore
 		mapDispatchToProps
 	);
 

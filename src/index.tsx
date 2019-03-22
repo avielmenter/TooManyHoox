@@ -70,6 +70,34 @@ type StoreConfig<State, Action> = {
 	context: StoreContext<State, Action>
 };
 
+// EXCEPTIONS
+
+export type EXCEPTION_TYPE
+	= "HOOX_COMBINE_NO_REDUCERS"
+	| "HOOX_REDUCER_RETURNS_UNDEFINED";
+
+export type HooxException = {
+	type: EXCEPTION_TYPE | "HOOX_UNKNOWN",
+	message: string,
+	data?: any
+}
+
+function exceptionMessage(type: EXCEPTION_TYPE): string {
+	switch (type) {
+		case "HOOX_COMBINE_NO_REDUCERS":
+			return "You must provide at least one reducer to combineReducers";
+
+		case "HOOX_REDUCER_RETURNS_UNDEFINED":
+			return "Reducers must not return undefined or null";
+	}
+}
+
+const hooxException: (type: EXCEPTION_TYPE, data?: any) => HooxException = (type, data) => ({
+	type,
+	message: exceptionMessage(type),
+	data
+});
+
 // UTIL
 
 /**
@@ -78,12 +106,18 @@ type StoreConfig<State, Action> = {
  * @returns {Reducer<State,Action>} The combined reducer
  */
 export function combineReducers<S, A>(reducers: { [K in keyof S]: Reducer<S, A> }): Reducer<S, A> {
+	if (reducers == {})
+		throw hooxException("HOOX_COMBINE_NO_REDUCERS");
+
 	return (s: S, a: A) => {
 		let state = s;
 
 		for (const k in reducers) {
 			state = reducers[k](state, a);
 		}
+
+		if (!state)
+			throw hooxException("HOOX_REDUCER_RETURNS_UNDEFINED");
 
 		return state;
 	}
@@ -122,7 +156,7 @@ export function useStore<State, Action>(
 
 	return {
 		state: currState,
-		dispatch,
+		dispatch
 	};
 };
 
@@ -135,16 +169,20 @@ export function useStore<State, Action>(
  */
 export function useHoox<State, Action, DispatchProps, MappedState = State>(
 	store: Store<State, Action> | StoreContext<State, Action>,
-	mapStateToProps: (state: State) => MappedState,
-	mapDispatchToProps: (dispatch: Dispatch<Action>) => DispatchProps
+	mapStateToProps?: (state: State) => MappedState,
+	mapDispatchToProps?: (dispatch: Dispatch<Action>) => DispatchProps
 ): StoreProps<MappedState, DispatchProps> {
 	const hooxStore: Store<State, Action> = (store as StoreContext<State, Action>).Consumer
 		? React.useContext(store as StoreContext<State, Action>) as Store<State, Action>
 		: store as Store<State, Action>;
 
 	return {
-		state: mapStateToProps(hooxStore.state),
-		actions: mapDispatchToProps(hooxStore.dispatch)
+		state: mapStateToProps
+			? mapStateToProps(hooxStore.state)
+			: hooxStore.state as any as MappedState,
+		actions: mapDispatchToProps
+			? mapDispatchToProps(hooxStore.dispatch)
+			: { dispatch: hooxStore.dispatch } as any as DispatchProps
 	}
 }
 

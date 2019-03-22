@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/avielmenter/hoox.git"
+    "url": "git+https://github.com/avielmenter/toomanyhoox.git"
   },
   "author": "Aviel Menter",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/avielmenter/hoox/issues"
+    "url": "https://github.com/avielmenter/toomanyhoox/issues"
   },
-  "homepage": "https://github.com/avielmenter/hoox#readme",
+  "homepage": "https://github.com/avielmenter/toomanyhoox#readme",
   "peerDependencies": {
     "@types/react": "^16.8.8",
     "react": "^16.8.4"
