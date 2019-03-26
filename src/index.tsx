@@ -123,11 +123,6 @@ export function combineReducers<S, A>(reducers: { [K in keyof S]: Reducer<S, A> 
 	}
 }
 
-/**
- * Return this from middleware instead of a dispatch function when you want nothing to happen
- */
-export function NoOp<Action>(_: Action): void { };
-
 // REDUCER CUSTOM HOOKS
 
 /**
@@ -173,7 +168,7 @@ export function useHoox<State, Action, DispatchProps, MappedState = State>(
 	mapDispatchToProps?: (dispatch: Dispatch<Action>) => DispatchProps
 ): StoreProps<MappedState, DispatchProps> {
 	const hooxStore: Store<State, Action> = (store as StoreContext<State, Action>).Consumer
-		? React.useContext(store as StoreContext<State, Action>) as Store<State, Action>
+		? React.useContext(store as StoreContext<State, Action>)
 		: store as Store<State, Action>;
 
 	return {
@@ -200,7 +195,7 @@ export function createStore<State, Action>(
 	state: State,
 	middleware?: Middleware<State, Action> | Middleware<State, Action>[]
 ) {
-	const dispatch: React.Dispatch<Action> = NoOp;
+	const dispatch: Dispatch<Action> = (_) => { };
 
 	const store: StoreConfig<State, Action> = {
 		reducer,
@@ -216,7 +211,7 @@ export function createStore<State, Action>(
 		store,
 		useStore: <MappedState, DispatchProps>(
 			mapStateToProps: (state: State) => MappedState,
-			mapDispatchToProps: (dispatch: React.Dispatch<Action>) => DispatchProps
+			mapDispatchToProps: (dispatch: Dispatch<Action>) => DispatchProps
 		) => useHoox(React.useContext(store.context), mapStateToProps, mapDispatchToProps)
 	};
 }
