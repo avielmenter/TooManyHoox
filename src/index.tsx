@@ -3,6 +3,15 @@ import * as React from 'react';
 // TYPE DEFINITIONS
 
 /**
+ * A generic type for actions. Reducers should accept this type.
+ * @typedef {{type: string, [extraProps: string]: any}} AnyAction
+ */
+export type AnyAction = {
+	type: string,
+	[extraProps: string]: any
+}
+
+/**
  * Takes a state and an action, and produces a new state.
  * @typedef {(state: State, action: Action) => State} Reducer<State,Action>
  * @param {State} State The type of the state accepted and produced by the reducer
@@ -105,7 +114,7 @@ const hooxException: (type: EXCEPTION_TYPE, data?: any) => HooxException = (type
  * @param reducers An object with a reducer for each property of the state
  * @returns {Reducer<State,Action>} The combined reducer
  */
-export function combineReducers<S, A>(reducers: { [K in keyof S]: Reducer<S, A> }): Reducer<S, A> {
+export function combineReducers<S, A>(reducers: { [K: string]: Reducer<S, A> }): Reducer<S, A> {
 	if (reducers == {})
 		throw hooxException("HOOX_COMBINE_NO_REDUCERS");
 
